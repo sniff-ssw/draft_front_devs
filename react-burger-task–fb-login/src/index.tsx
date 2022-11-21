@@ -13,12 +13,6 @@ import orderReducer from './store/reducers/orderReducer';
 import authReducer from './store/reducers/authReducer';
 import { watchAuth, watchBurgerBuilder, watchOrder } from './store/sagas';
 
-// let composeEnhancers = null; // piece of shit was here
-// if (process.env.NODE_ENV === 'development') {
-//     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// } else {
-//     composeEnhancers = compose;
-// }
 const composeEnhancers =
   (process.env.NODE_ENV === 'development' &&
     (window as any)?.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||

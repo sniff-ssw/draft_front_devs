@@ -1,3 +1,4 @@
+
 npx create-react-app react-burger-task–fb-login --template typescript
 
 integrate burger to app
@@ -16,4 +17,5 @@ request to delete data, etc.)
 
 deploy
 https://alexfkr9.github.io/react-facebook-login/
+
 
