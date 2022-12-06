@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
@@ -37,7 +37,9 @@ sagaMiddleware.run(watchAuth);
 sagaMiddleware.run(watchBurgerBuilder);
 sagaMiddleware.run(watchOrder);
 
-const app = (
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render (
   <Provider store={store}>
     <BrowserRouter>
       <App />
@@ -45,4 +47,4 @@ const app = (
   </Provider>
 );
 
-ReactDOM.render(app, document.getElementById('root'));
+

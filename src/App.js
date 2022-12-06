@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -10,7 +10,7 @@ import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
 import * as actions from './store/actions/index';
 
-class App extends Component {
+const App = (props) => {
   // state = {
   //   show: true
   // };
@@ -20,11 +20,11 @@ class App extends Component {
   //     this.setState({ show: false });
   //   }, 5000);
   // }
-  componentDidMount() {
-    this.props.onTryAutoSignup();
-  }
 
-  render() {
+  useEffect(()=>{
+    props.onTryAutoSignup();
+  })
+
     let routes = (
       <Switch>
         <Route path="/auth" component={Auth} />
@@ -33,7 +33,7 @@ class App extends Component {
       </Switch>
     );
 
-    if (this.props.isAuthenticated) {
+    if (props.isAuthenticated) {
       routes = (
         <Switch>
           <Route path="/orders" component={Orders} />
@@ -51,7 +51,7 @@ class App extends Component {
         <Layout>{routes}</Layout>
       </div>
     );
-  }
+  
 }
 
 const mapStateToProps = state => {
