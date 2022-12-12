@@ -112,7 +112,7 @@ function ContactData(props:any) {
     props.onOrderBurger(order, props.token);
   };
 
-  const inputChangedHandler = (e:any, inputIdentifier:any) => {
+  const inputChangedHandler = (e:any, inputIdentifier:any):void => {
     const updatedFormEl = updateObject(state.orderForm[inputIdentifier], {
       value: e.target.value,
       valid: checkValidity(

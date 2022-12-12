@@ -49,8 +49,7 @@ function Auth(props:any) {
     if (!props.buildingBurger && props.authRedirectPath !== '/') {
       props.onSetAuthRedirectPath();      
     }
-    console.log("test",props.onSetAuthRedirectPath(), props.buildingBurger, props.authRedirectPath !== '/');
-  })
+  }, [])
 
 
   //nested objects old/new values
@@ -103,7 +102,7 @@ function Auth(props:any) {
         elementType={formEl.config.elementType}
         elementConfig={formEl.config.elementConfig}
         value={formEl.config.value}
-        changed={(e:any) => inputChangedHandler(e, formEl.id)}
+        changed={(e:React.SyntheticEvent) => inputChangedHandler(e, formEl.id)}
         invalid={!formEl.config.valid}
         shouldValidate={formEl.config.validation}
         touched={formEl.config.touched}
@@ -152,7 +151,7 @@ const mapStateToProps = (state:any) => {
 
 const mapDispatchToProps = (dispatch:any) => {
   return {
-    onAuth: (email:any, password:any, isSignup:any) =>
+    onAuth: (email:string, password:string, isSignup:boolean) =>
       dispatch(actions.auth(email, password, isSignup)),
     onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
   };

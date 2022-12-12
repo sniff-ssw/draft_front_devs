@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import * as actions from '../actions/index';
 
-export function* logoutSaga(action) {
+export function* logoutSaga(action:any) {
   yield call([localStorage, 'removeItem'], 'token');
   yield call([localStorage, 'removeItem'], 'expirationDate');
   yield call([localStorage, 'removeItem'], 'userId');
@@ -14,7 +14,7 @@ export function* logoutSaga(action) {
   yield put(actions.logoutSucceed());
 }
 
-export function* checkAuthTimeoutSaga(action) {
+export function* checkAuthTimeoutSaga(action:any) {
   yield delay(action.expirationTime * 1000);
   yield put(actions.logout());
   // setTimeout(() => {
@@ -22,7 +22,7 @@ export function* checkAuthTimeoutSaga(action) {
   // }, expirationTime * 1000);
 }
 
-export function* authUserSaga(action) {
+export function* authUserSaga(action:any):Generator<any, any, any> {
   // "put" in redux-saga is the same as "dispatch"
   yield put(actions.authStart()); //is the same as dispatch(authStart());
   const authData = {
@@ -38,7 +38,7 @@ export function* authUserSaga(action) {
   }
   try {
     const res = yield axios.post(url, authData);
-    const expirationDate = yield new Date(
+    const expirationDate:any = yield new Date(
       new Date().getTime() + res.data.expiresIn * 1000
     );
     yield localStorage.setItem('token', res.data.idToken);
@@ -46,19 +46,19 @@ export function* authUserSaga(action) {
     yield localStorage.setItem('userId', res.data.localId);
     yield put(actions.authSuccess(res.data.idToken, res.data.localId));
     yield put(actions.checkAuthTimeout(res.data.expiresIn));
-  } catch (err) {
+  } catch (err:any) {
     yield put(actions.authFail(err.response.data.error));
   }
 }
 
-export function* authCheckStateSaga(action) {
+export function* authCheckStateSaga(action:any):Generator<any, any, any>{
   // "put" in redux-saga is the same as "dispatch"
-  const token = yield localStorage.getItem('token');
+  const token:any = yield localStorage.getItem('token');
   if (!token) {
     yield put(actions.logout());
   } else {
-    const expirationDate = yield new Date(
-      localStorage.getItem('expirationDate')
+    const expirationDate:any = yield new Date(
+      localStorage.getItem('expirationDate')  || ""
     );
     if (expirationDate <= new Date()) {
       yield put(actions.logout());
