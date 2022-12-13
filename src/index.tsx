@@ -12,7 +12,8 @@ import App from './App';
 import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import orderReducer from './store/reducers/orderReducer';
 import authReducer from './store/reducers/authReducer';
-import { watchAuth, watchBurgerBuilder, watchOrder } from './store/sagas';
+import { watchAuth, watchOrder } from './store/sagas';
+// import { watchAuth, watchBurgerBuilder, watchOrder } from './store/sagas';
 
 const composeEnhancers =
   process.env.NODE_ENV === 'development'
@@ -35,7 +36,7 @@ const store = createStore(
 
 // then run the saga
 sagaMiddleware.run(watchAuth);
-sagaMiddleware.run(watchBurgerBuilder);
+// sagaMiddleware.run(watchBurgerBuilder);
 sagaMiddleware.run(watchOrder);
 
 const root = ReactDOM.createRoot(

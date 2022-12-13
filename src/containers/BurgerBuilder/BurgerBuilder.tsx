@@ -12,6 +12,8 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import axios from '../../axios-orders';
 
+import {initIngredientsThunk} from '../../store/thunks/burgerBuilder'
+
 function BurgerBuilder(props:any) {
 
   const [state, setState] = useState({purchasing: false});
@@ -117,7 +119,7 @@ const mapDispatchToProps = (dispatch:any) => {
   return {
     onIngredientAdded: (ingName:any) => dispatch(actions.addIngredient(ingName)),
     onIngredientRemoved: (ingName:any) => dispatch(actions.removeIngredient(ingName)),
-    onInitIngredients: () => dispatch(actions.initIngredients()),
+    onInitIngredients: () => dispatch(initIngredientsThunk()),
     onInitPurchase: () => dispatch(actions.purchaseInit()),
     onSetAuthRedirectPath: (path:any) => dispatch(actions.setAuthRedirectPath(path))
   };
