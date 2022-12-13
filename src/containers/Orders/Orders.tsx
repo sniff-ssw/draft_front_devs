@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as actions from '../../store/actions/index';
+// import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
+
+import {fetchOrdersThunk} from '../../store/thunks/order'
 
 function Orders(props:any) {
 
@@ -38,7 +40,7 @@ const mapStateToProps = (state:any) => {
 const mapDispatchToProps = (dispatch:any) => {
   return {
     onFetchOrders: (token:any, userId:any) =>
-      dispatch(actions.fetchOrders(token, userId))
+      dispatch(fetchOrdersThunk(token, userId))
   };
 };
 

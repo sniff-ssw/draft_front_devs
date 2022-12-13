@@ -7,8 +7,10 @@ import Input from '../../../components/UI/Input/Input';
 import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
-import * as orderActions from '../../../store/actions/index';
+// import * as orderActions from '../../../store/actions/index';
 import { updateObject, checkValidity } from '../../../shared/utility';
+
+import {purchaseBurgerThunk} from '../../../store/thunks/order';
 
 
 function ContactData(props:any) {
@@ -188,7 +190,7 @@ const mapStateToProps = (state:any) => {
 const mapDispatchToProps = (dispatch:any) => {
   return {
     onOrderBurger: (orderData:any, token:any) =>
-      dispatch(orderActions.purchaseBurger(orderData, token))
+      dispatch(purchaseBurgerThunk(orderData, token))
   };
 };
 
