@@ -6,6 +6,9 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
+import { useDispatch } from 'react-redux';
+import { fetchOrdersThunk, purchaseBurgerThunk } from '../../store/thunk/orderThunk'
+
 function Orders(props: any) {
   // state = {
   //   orders: [],
@@ -13,8 +16,12 @@ function Orders(props: any) {
   //   loading: true
   // };
 
-  useEffect(() => {
-    props.onFetchOrders(props.token, props.userId);
+  // const dispatch=useDispatch();
+
+  useEffect(() => { 
+    // dispatch<any>(fetchOrdersSaga(props.token, props.userId));
+    props.onFetchOrders(props.token, props.userId);        
+    
     // const req = async () => {
     //   try {
     //     const res = await axios.get('/orders.json');
@@ -64,7 +71,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     onFetchOrders: (token: any, userId: any) =>
-      dispatch(actions.fetchOrders(token, userId))
+      dispatch(fetchOrdersThunk(token, userId))
   };
 };
 

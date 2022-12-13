@@ -34,7 +34,7 @@ function Checkout(props: any) {
   const checkoutContinuedHandler = () => {
     props.history.replace('/checkout/contact-data');
   };
-  console.log(props);
+ 
     let summary = <Redirect to="/" />;
 
     if (props.ings) {

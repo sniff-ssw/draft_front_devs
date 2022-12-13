@@ -9,6 +9,9 @@ import classes from "./Auth.module.css";
 import * as actions from "../../store/actions/index";
 import { updateObject, checkValidity } from "../../shared/utility";
 
+import { useDispatch } from 'react-redux';
+import { authUserThunk } from '../../store/thunk/authThunk';
+
 function Auth(props: any) {
   const [state, setState] = useState<any>({
     controls: {
@@ -67,6 +70,7 @@ function Auth(props: any) {
     });
   };
 
+  const dispatch=useDispatch();
   const submitHandler = (event: any) => {
     event.preventDefault();
     props.onAuth(
@@ -74,6 +78,10 @@ function Auth(props: any) {
       state.controls.password.value,
       state.isSignup
     );
+    dispatch<any>(authUserThunk(
+      state.controls.email.value,
+      state.controls.password.value,
+      state.isSignup));
   };
 
   const switchAuthModeHandler = () => {

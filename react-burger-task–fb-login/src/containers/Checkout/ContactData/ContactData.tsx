@@ -10,6 +10,9 @@ import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as orderActions from '../../../store/actions/index';
 import { updateObject, checkValidity } from '../../../shared/utility';
 
+import { useDispatch } from 'react-redux';
+import { purchaseBurgerThunk } from '../../../store/thunk/orderThunk'
+
 function ContactData(props: any) {
   const [state, setState] = useState<any>({
     orderForm: {
@@ -94,7 +97,7 @@ function ContactData(props: any) {
     },
     formIsValid: false
   });
-
+const dispatch=useDispatch();
   const orderHandler = (e: any) => {
     e.preventDefault();
     //alert('You continue!');
@@ -109,7 +112,9 @@ function ContactData(props: any) {
       orderData: formData,
       userId: props.userId
     };
+    
     props.onOrderBurger(order, props.token);
+    dispatch<any>(purchaseBurgerThunk(order, props.token));
     // const req = async () => {
     //   try {
     //     //error check await axios.post('/orders', order);

@@ -11,6 +11,9 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import axios from '../../axios-orders';
+import { useDispatch } from 'react-redux';
+import { initIngredients } from '../../store/thunk/burgerBuilderThunk'
+
 
 function BurgerBuilder(props: any) {
   // constructor(props) {
@@ -18,10 +21,12 @@ function BurgerBuilder(props: any) {
   //     this.state = {...}
   // }
 
-  
+  const dispatch=useDispatch();
   const [state, setState] = useState({purchasing: false});
 
   useEffect(() => {
+    // dispatch<any>(initIngredients()); console.log( dispatch<any>(initIngredients()) );
+    // props.onGetRequest(); console.log(props.onGetRequest());
     props.onInitIngredients();
   }, []);
 
@@ -139,6 +144,7 @@ function BurgerBuilder(props: any) {
         />
       );
     }
+    
     return (
       <Aux>
         <Modal
@@ -146,7 +152,7 @@ function BurgerBuilder(props: any) {
           modalClosed={purchaseCancelHandler}
         >
           {orderSummary}
-        </Modal>
+        </Modal>        
         {burger}
       </Aux>
     );
@@ -166,9 +172,10 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     onIngredientAdded: (ingName: any) => dispatch(actions.addIngredient(ingName)),
     onIngredientRemoved: (ingName: any) => dispatch(actions.removeIngredient(ingName)),
-    onInitIngredients: () => dispatch(actions.initIngredients()),
+    onInitIngredients: () => dispatch(initIngredients()),
     onInitPurchase: () => dispatch(actions.purchaseInit()),
-    onSetAuthRedirectPath: (path: any) => dispatch(actions.setAuthRedirectPath(path))
+    onSetAuthRedirectPath: (path: any) => dispatch(actions.setAuthRedirectPath(path)),
+    // onGetRequest: () => dispatch('getRequest()'),  
   };
 };
 

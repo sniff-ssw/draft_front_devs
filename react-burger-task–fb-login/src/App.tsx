@@ -8,8 +8,8 @@ import Checkout from './containers/Checkout/Checkout';
 import Orders from './containers/Orders/Orders';
 import Auth from './containers/Auth/Auth';
 import Logout from './containers/Auth/Logout/Logout';
-import * as actions from './store/actions/index';
 
+import { authCheckStateThunk } from './store/thunk/authThunk';
 
 // interface AppProps {};
 // const App: React.FC<AppProps> = (props: any) => {
@@ -24,19 +24,21 @@ const App = (props: State) => {
   //   }, 5000);
   // }
 
+  // const dispatch = useDispatch();
+
   useEffect(() => {
     props.onTryAutoSignup();
-  })
-  
+    // dispatch<any>(authCheckStateThunk());
+  })  
   
     let routes = (
-      <Switch>
+      <Switch>        
         <Route path="/auth" component={Auth} />        
         <Route path="/" exact component={BurgerBuilder} />
         <Redirect to="/" />
       </Switch>
     );
-console.log(props.isAuthenticated);
+
     if ( props.isAuthenticated) {
       routes = (
         <Switch>
@@ -66,7 +68,7 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: State) => {
   return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState())
+    onTryAutoSignup: () => dispatch(authCheckStateThunk())
   };
 };
 
