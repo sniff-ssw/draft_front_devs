@@ -3,7 +3,7 @@ import * as actions from '../actions/index';
 
 import { store }  from '../../index';
 
-export function logoutThunk() {  console.log('logoutThunk');  
+export function logoutThunk() { 
       localStorage.removeItem('token');
       localStorage.removeItem('expirationDate');
       localStorage.removeItem('userId');       
@@ -47,21 +47,21 @@ export function authUserThunk(email: string, password: string, isSignup: boolean
 }
 
 export function authCheckStateThunk() {
-  return async function(dispatch: any) {
+  return function(dispatch: any) {
     const token = localStorage.getItem('token');
     if (!token) {
-      await dispatch(actions.logout());
+      logoutThunk();
     } else {
       const expirationDate = new Date(
         localStorage.getItem('expirationDate') || ""                     // !
       );
       if (expirationDate <= new Date()) {
-        await dispatch(actions.logout());
+        logoutThunk();
       } else {
         const userId:any = localStorage.getItem('userId');
-        await dispatch(actions.authSuccess(token, userId));
+        dispatch(actions.authSuccess(token, userId));
 
-        await dispatch(
+        dispatch(
           actions.checkAuthTimeout(
             expirationDate.getTime() - new Date().getTime() / 1000
           )                                                               
