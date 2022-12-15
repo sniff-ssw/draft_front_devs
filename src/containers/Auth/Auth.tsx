@@ -9,6 +9,8 @@ import classes from './Auth.module.css';
 import * as actions from '../../store/actions/index';
 import { updateObject, checkValidity } from '../../shared/utility';
 
+import {authUserThunk} from '../../store/thunks/auth'
+
 function Auth(props:any) {
 
   const [state, setState] = useState<any>({
@@ -42,7 +44,7 @@ function Auth(props:any) {
         touched: false
       }
     },
-    isSignup: true
+    fisSignup: true
   })
 
   useEffect(()=>{
@@ -152,7 +154,7 @@ const mapStateToProps = (state:any) => {
 const mapDispatchToProps = (dispatch:any) => {
   return {
     onAuth: (email:string, password:string, isSignup:boolean) =>
-      dispatch(actions.auth(email, password, isSignup)),
+      dispatch(authUserThunk(email, password, isSignup)),
     onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
   };
 };
