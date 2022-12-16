@@ -2,6 +2,8 @@ import React from 'react';
 
 import classes from './NavigationItems.module.css';
 import NavigationItem from './NavigationItem/NavigationItem';
+import FacebookLoginComponent from '../../../containers/Auth/FacebookAuth/FacebookLogin';
+
 
 const navigationItems = (props:any) => (
   <ul className={classes.NavigationItems}>
@@ -16,6 +18,11 @@ const navigationItems = (props:any) => (
     ) : (
       <NavigationItem link="/auth">Authenticate</NavigationItem>
     )}
+
+    <li>
+      <FacebookLoginComponent />
+    </li> 
+
   </ul>
 );
 
